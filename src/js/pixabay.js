@@ -21,7 +21,6 @@ export function getAndMarkupImgs(requestImgs, domEl, loaderEl) {
             return response.json();
         })
         .then(imgs => {
-            console.log(imgs);
             markupGallery(imgs, domEl);
             loaderEl.classList.add('js-hide');
         })
