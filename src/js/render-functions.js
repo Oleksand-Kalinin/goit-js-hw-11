@@ -1,7 +1,13 @@
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
+
 export function markupGallery(objImgs, domEl) {
-    const markup = objImgs.hits
-        .map(image => {
-            return `
+    if (objImgs.hits.length !== 0) {
+        const markup = objImgs.hits
+            .map(image => {
+                return `
             <li class="gallery-item">
                 <a class="gallery-link" href="${image.largeImageURL}">
                     <img
@@ -17,7 +23,24 @@ export function markupGallery(objImgs, domEl) {
                         <p class="img-info-text"><span class="span-img-info">Downloads</span>${image.downloads}</p>
                     </div>
             </li>`
-        })
-        .join('');
-    domEl.innerHTML = markup;
+            })
+            .join('');
+
+        domEl.innerHTML = markup;
+
+        const lightbox = new SimpleLightbox('.gallery-list a', {
+            captionDelay: 250,
+            captionsData: 'alt',
+        });
+
+        lightbox.refresh();
+
+
+    } else {
+        iziToast.error({
+            message: 'Sorry, there are no images matching your search query. Please try again!',
+            position: 'topCenter',
+        });
+    }
+
 }
