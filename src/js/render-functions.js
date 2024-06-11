@@ -3,6 +3,12 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
+
+const lightbox = new SimpleLightbox('.gallery-list a', {
+    captionDelay: 250,
+    captionsData: 'alt',
+});
+
 export function markupGallery(objImgs, domEl) {
     if (objImgs.hits.length !== 0) {
         const markup = objImgs.hits
@@ -28,13 +34,7 @@ export function markupGallery(objImgs, domEl) {
 
         domEl.innerHTML = markup;
 
-        const lightbox = new SimpleLightbox('.gallery-list a', {
-            captionDelay: 250,
-            captionsData: 'alt',
-        });
-
         lightbox.refresh();
-
 
     } else {
         iziToast.error({
